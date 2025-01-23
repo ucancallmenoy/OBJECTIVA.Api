@@ -23,4 +23,5 @@ Route::middleware('jwt.auth')->group(function () {
 Route::middleware('jwt.auth')->group(function () {
     Route::get('/quiz-scores', [QuizScoreController::class, 'getScores']);
     Route::post('/quiz-scores', [QuizScoreController::class, 'saveScore']);
+    Route::get('/quiz-scores/{quizId}', [QuizScoreController::class, 'getCurrentScore']);
 });

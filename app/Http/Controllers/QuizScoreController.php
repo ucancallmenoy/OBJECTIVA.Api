@@ -29,6 +29,27 @@ class QuizScoreController extends Controller
         }
     }
 
+    public function getCurrentScore($quizId)
+    {
+        try {
+            $user = JWTAuth::parseToken()->authenticate();
+            
+            $score = QuizScore::where('user_id', $user->id)
+                ->where('quiz_id', $quizId)
+                ->first();
+
+            return response()->json([
+                'success' => true,
+                'data' => $score ? $score->score : null
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
+
     public function saveScore(Request $request)
     {
         try {
