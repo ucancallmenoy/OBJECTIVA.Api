@@ -13,7 +13,12 @@ Route::get('/user', function (Request $request) {
 
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
-Route::middleware('auth:api')->get('/user', [AuthController::class, 'user']);
+Route::middleware('jwt.auth')->group(function () {
+    Route::get('/user', [AuthController::class, 'user']);
+    Route::put('/update-profile', [AuthController::class, 'updateProfile']);
+    // ... other protected routes
+});
+
 
 Route::middleware('jwt.auth')->group(function () {
     Route::post('/lesson-progress', [LessonProgressController::class, 'updateProgress']);
