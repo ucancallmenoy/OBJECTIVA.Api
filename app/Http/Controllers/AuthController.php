@@ -154,4 +154,37 @@ public function deleteUser($id)
 
     return response()->json(['message' => 'User deleted successfully']);
 }
+
+public function addUser(Request $request)
+{
+    // Ensure only admin can add users
+    $adminUser = auth()->user();
+    if (!$adminUser || !$adminUser->is_admin) {
+        return response()->json(['error' => 'Unauthorized'], 403);
+    }
+
+    // Validate request data
+    $request->validate([
+        'first_name' => 'required|string|max:255',
+        'last_name' => 'required|string|max:255',
+        'email' => 'required|email|unique:users,email',
+        'password' => 'required|string|min:6',
+        // 'is_active' => 'required|boolean'
+    ]);
+
+    // Create new user
+    $user = User::create([
+        'first_name' => $request->first_name,
+        'last_name' => $request->last_name,
+        'email' => $request->email,
+        'password' => Hash::make($request->password),
+        // 'is_active' => $request->is_active
+    ]);
+
+    return response()->json([
+        'message' => 'User created successfully',
+        'user' => $user
+    ]);
+}
+
 }

@@ -24,6 +24,7 @@ Route::middleware('jwt.auth')->group(function () {
 Route::middleware('jwt.auth')->group(function () {
     // Admin routes
     Route::get('/admin/users', [AuthController::class, 'getAllUsers']);
+    Route::post('/admin/users', [AuthController::class, 'addUser']);
     Route::put('/admin/users/{id}', [AuthController::class, 'adminUpdateUser']);
     Route::delete('/admin/users/{id}', [AuthController::class, 'deleteUser']);
 });
