@@ -33,5 +33,5 @@ Route::middleware('jwt.auth')->group(function () {
 
 Route::get('abstraction-quizzes', [QuizController::class, 'getAbstractionQuizzes']);
 Route::get('polymorphism-quizzes', [QuizController::class, 'getPolymorphismQuizzes']);
-// Route::get('inheritance-quizzes', [QuizController::class, 'getInheritanceQuizzes']);
+Route::get('inheritance-quizzes', [QuizController::class, 'getInheritanceQuizzes']);
 // Route::get('encapsulation-quizzes', [QuizController::class, 'getEncapsulationQuizzes']);
