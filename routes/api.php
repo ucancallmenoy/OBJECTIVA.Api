@@ -40,6 +40,15 @@ Route::middleware('jwt.auth')->group(function () {
     Route::get('/quiz-scores/{quizId}', [QuizScoreController::class, 'getCurrentScore']);
 });
 
+Route::middleware('jwt.auth')->group(function () {
+    // Admin Abstraction Quiz Routes
+    Route::get('/admin/abstraction-quizzes', [QuizController::class, 'getAdminAbstractionQuizzes']);
+    Route::post('/admin/abstraction-quizzes', [QuizController::class, 'addAbstractionQuiz']);
+    Route::put('/admin/abstraction-quizzes/{id}', [QuizController::class, 'updateAbstractionQuiz']);
+    Route::delete('/admin/abstraction-quizzes/{id}', [QuizController::class, 'deleteAbstractionQuiz']);
+});
+
+// LESSONS QUIZ ROUTES
 Route::get('abstraction-quizzes', [QuizController::class, 'getAbstractionQuizzes']);
 Route::get('polymorphism-quizzes', [QuizController::class, 'getPolymorphismQuizzes']);
 Route::get('inheritance-quizzes', [QuizController::class, 'getInheritanceQuizzes']);

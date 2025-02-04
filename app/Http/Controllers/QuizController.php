@@ -49,4 +49,80 @@ class QuizController extends Controller
         $quizzes = IntroductionToOopQuiz::all();
         return response()->json($quizzes);
     }
+
+    /**
+     * Get all Abstraction Quizzes with admin access
+     */
+    public function getAdminAbstractionQuizzes(): JsonResponse
+    {
+        $quizzes = AbstractionQuiz::all();
+        return response()->json($quizzes);
+    }
+
+    /**
+     * Add a new Abstraction Quiz
+     */
+    public function addAbstractionQuiz(Request $request): JsonResponse
+    {
+        $validator = Validator::make($request->all(), [
+            'question' => 'required|string',
+            'a' => 'required|string',
+            'b' => 'required|string',
+            'c' => 'required|string',
+            'd' => 'required|string',
+            'correct' => 'required|in:a,b,c,d',
+            'explanation' => 'nullable|string',
+            'code' => 'nullable|string'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'errors' => $validator->errors()
+            ], 422);
+        }
+
+        $quiz = AbstractionQuiz::create($request->all());
+
+        return response()->json($quiz, 201);
+    }
+
+    /**
+     * Update an existing Abstraction Quiz
+     */
+    public function updateAbstractionQuiz(Request $request, $id): JsonResponse
+    {
+        $quiz = AbstractionQuiz::findOrFail($id);
+
+        $validator = Validator::make($request->all(), [
+            'question' => 'sometimes|required|string',
+            'a' => 'sometimes|required|string',
+            'b' => 'sometimes|required|string',
+            'c' => 'sometimes|required|string',
+            'd' => 'sometimes|required|string',
+            'correct' => 'sometimes|required|in:a,b,c,d',
+            'explanation' => 'nullable|string',
+            'code' => 'nullable|string'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'errors' => $validator->errors()
+            ], 422);
+        }
+
+        $quiz->update($request->all());
+
+        return response()->json($quiz);
+    }
+
+    /**
+     * Delete an Abstraction Quiz
+     */
+    public function deleteAbstractionQuiz($id): JsonResponse
+    {
+        $quiz = AbstractionQuiz::findOrFail($id);
+        $quiz->delete();
+
+        return response()->json(null, 204);
+    }
 }
