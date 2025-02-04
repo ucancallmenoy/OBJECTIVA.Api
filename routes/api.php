@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\LessonProgressController;
 use App\Http\Controllers\QuizScoreController;
-
+use App\Http\Controllers\QuizController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -30,3 +30,8 @@ Route::middleware('jwt.auth')->group(function () {
     Route::post('/quiz-scores', [QuizScoreController::class, 'saveScore']);
     Route::get('/quiz-scores/{quizId}', [QuizScoreController::class, 'getCurrentScore']);
 });
+
+Route::get('abstraction-quizzes', [QuizController::class, 'getAbstractionQuizzes']);
+// Route::get('polymorphism-quizzes', [QuizController::class, 'getPolymorphismQuizzes']);
+// Route::get('inheritance-quizzes', [QuizController::class, 'getInheritanceQuizzes']);
+// Route::get('encapsulation-quizzes', [QuizController::class, 'getEncapsulationQuizzes']);
