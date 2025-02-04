@@ -30,9 +30,9 @@ class QuizController extends Controller
         return response()->json($quizzes);
     }
 
-    // public function getEncapsulationQuizzes(): JsonResponse
-    // {
-    //     $quizzes = EncapsulationQuiz::all();
-    //     return response()->json($quizzes);
-    // }
+    public function getEncapsulationQuizzes(): JsonResponse
+    {
+        $quizzes = EncapsulationQuiz::all();
+        return response()->json($quizzes);
+    }
 }
