@@ -35,3 +35,5 @@ Route::get('abstraction-quizzes', [QuizController::class, 'getAbstractionQuizzes
 Route::get('polymorphism-quizzes', [QuizController::class, 'getPolymorphismQuizzes']);
 Route::get('inheritance-quizzes', [QuizController::class, 'getInheritanceQuizzes']);
 Route::get('encapsulation-quizzes', [QuizController::class, 'getEncapsulationQuizzes']);
+Route::get('introduction-to-java-quizzes', [QuizController::class, 'getIntroductionToJavaQuizzes']);
+Route::get('introduction-to-oop-quizzes', [QuizController::class, 'getIntroductionToOopQuizzes']);
