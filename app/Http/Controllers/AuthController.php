@@ -47,6 +47,7 @@ class AuthController extends Controller
                 'first_name' => $user->first_name,
                 'last_name' => $user->last_name,
                 'email' => $user->email,
+                'is_admin' => $user->is_admin,
             ],
         ]);
     }
@@ -89,5 +90,68 @@ class AuthController extends Controller
             'error' => $e->getMessage()
         ], 500);
     }
+}
+
+
+
+
+public function getAllUsers()
+{
+    // Ensure only admin can access this
+    $adminUser = auth()->user();
+    if (!$adminUser || !$adminUser->is_admin) {
+        return response()->json(['error' => 'Unauthorized'], 403);
+    }
+
+    $users = User::select('id', 'first_name', 'last_name', 'email')->get();
+    return response()->json($users);
+}
+
+public function adminUpdateUser(Request $request, $id)
+{
+    // Ensure only admin can update users
+    $adminUser = auth()->user();
+    if (!$adminUser || !$adminUser->is_admin) {
+        return response()->json(['error' => 'Unauthorized'], 403);
+    }
+
+    $user = User::findOrFail($id);
+
+    $request->validate([
+        'first_name' => 'sometimes|string|max:255',
+        'last_name' => 'sometimes|string|max:255',
+        'email' => 'sometimes|email|unique:users,email,' . $user->id,
+        'password' => 'nullable|string|min:6',
+        'is_active' => 'sometimes|boolean'
+    ]);
+
+    // Prepare update data
+    $updateData = $request->only(['first_name', 'last_name', 'email', 'is_active']);
+
+    // Update password if provided
+    if ($request->filled('password')) {
+        $updateData['password'] = Hash::make($request->password);
+    }
+
+    $user->update($updateData);
+
+    return response()->json([
+        'message' => 'User updated successfully',
+        'user' => $user
+    ]);
+}
+
+public function deleteUser($id)
+{
+    // Ensure only admin can delete users
+    $adminUser = auth()->user();
+    if (!$adminUser || !$adminUser->is_admin) {
+        return response()->json(['error' => 'Unauthorized'], 403);
+    }
+
+    $user = User::findOrFail($id);
+    $user->delete();
+
+    return response()->json(['message' => 'User deleted successfully']);
 }
 }
