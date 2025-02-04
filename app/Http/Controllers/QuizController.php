@@ -18,11 +18,11 @@ class QuizController extends Controller
         return response()->json($quizzes);
     }
 
-    // public function getPolymorphismQuizzes(): JsonResponse
-    // {
-    //     $quizzes = PolymorphismQuiz::all();
-    //     return response()->json($quizzes);
-    // }
+    public function getPolymorphismQuizzes(): JsonResponse
+    {
+        $quizzes = PolymorphismQuiz::all();
+        return response()->json($quizzes);
+    }
 
     // public function getInheritanceQuizzes(): JsonResponse
     // {
