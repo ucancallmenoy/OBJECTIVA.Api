@@ -42,12 +42,12 @@ class LessonProgressController extends Controller  // Make sure this extends Con
         }
     }
 
-    public function getProgress()
+    public function getProgress(Request $request)
     {
         try {
             $user = JWTAuth::parseToken()->authenticate();
             
-            $progress = LessonProgress::where('user_id', $user->id)
+            $progress = LessonProgress::where('user_id', $request->query('user_id'))
                 ->get()
                 ->pluck('completed', 'lesson_id')
                 ->toArray();
