@@ -13,6 +13,43 @@ use App\Models\IntroductionToOopQuiz;
 
 class QuizController extends Controller
 {
+
+    public function getAbstractionQuizzes(): JsonResponse
+    {
+        $quizzes = AbstractionQuiz::all();
+        return response()->json($quizzes);
+    }
+
+    public function getPolymorphismQuizzes(): JsonResponse
+    {
+        $quizzes = PolymorphismQuiz::all();
+        return response()->json($quizzes);
+    }
+
+    public function getInheritanceQuizzes(): JsonResponse
+    {
+        $quizzes = InheritanceQuiz::all();
+        return response()->json($quizzes);
+    }
+
+    public function getEncapsulationQuizzes(): JsonResponse
+    {
+        $quizzes = EncapsulationQuiz::all();
+        return response()->json($quizzes);
+    }
+
+    public function getIntroductionToJavaQuizzes(): JsonResponse
+    {
+        $quizzes = IntroductionToJavaQuiz::all();
+        return response()->json($quizzes);
+    }
+
+    public function getIntroductionToOopQuizzes(): JsonResponse
+    {
+        $quizzes = IntroductionToOopQuiz::all();
+        return response()->json($quizzes);
+    }
+    
     private $models = [
         'abstraction' => AbstractionQuiz::class,
         'polymorphism' => PolymorphismQuiz::class,
