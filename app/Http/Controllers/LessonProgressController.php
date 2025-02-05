@@ -47,6 +47,28 @@ class LessonProgressController extends Controller  // Make sure this extends Con
         try {
             $user = JWTAuth::parseToken()->authenticate();
             
+            $progress = LessonProgress::where('user_id', $user->id)
+                ->get()
+                ->pluck('completed', 'lesson_id')
+                ->toArray();
+
+            return response()->json([
+                'success' => true,
+                'data' => $progress
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    public function getProgressAdmin(Request $request)
+    {
+        try {
+            $user = JWTAuth::parseToken()->authenticate();
+            
             $progress = LessonProgress::where('user_id', $request->query('user_id'))
                 ->get()
                 ->pluck('completed', 'lesson_id')

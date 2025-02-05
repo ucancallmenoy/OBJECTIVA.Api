@@ -32,6 +32,7 @@ Route::middleware('jwt.auth')->group(function () {
 Route::middleware('jwt.auth')->group(function () {
     Route::post('/lesson-progress', [LessonProgressController::class, 'updateProgress']);
     Route::get('/lesson-progress', [LessonProgressController::class, 'getProgress']);
+    Route::get('/lesson-progress-admin', [LessonProgressController::class, 'getProgressAdmin']);
 });
 
 Route::middleware('jwt.auth')->group(function () {
@@ -41,11 +42,10 @@ Route::middleware('jwt.auth')->group(function () {
 });
 
 Route::middleware('jwt.auth')->group(function () {
-    // Admin Abstraction Quiz Routes
-    Route::get('/admin/abstraction-quizzes', [QuizController::class, 'getAdminAbstractionQuizzes']);
-    Route::post('/admin/abstraction-quizzes', [QuizController::class, 'addAbstractionQuiz']);
-    Route::put('/admin/abstraction-quizzes/{id}', [QuizController::class, 'updateAbstractionQuiz']);
-    Route::delete('/admin/abstraction-quizzes/{id}', [QuizController::class, 'deleteAbstractionQuiz']);
+    Route::get('/admin/{type}-quizzes', [QuizController::class, 'getQuizzes']);
+    Route::post('/admin/{type}-quizzes', [QuizController::class, 'addQuiz']);
+    Route::put('/admin/{type}-quizzes/{id}', [QuizController::class, 'updateQuiz']);
+    Route::delete('/admin/{type}-quizzes/{id}', [QuizController::class, 'deleteQuiz']);
 });
 
 // LESSONS QUIZ ROUTES
@@ -53,5 +53,5 @@ Route::get('abstraction-quizzes', [QuizController::class, 'getAbstractionQuizzes
 Route::get('polymorphism-quizzes', [QuizController::class, 'getPolymorphismQuizzes']);
 Route::get('inheritance-quizzes', [QuizController::class, 'getInheritanceQuizzes']);
 Route::get('encapsulation-quizzes', [QuizController::class, 'getEncapsulationQuizzes']);
-Route::get('introduction-to-java-quizzes', [QuizController::class, 'getIntroductionToJavaQuizzes']);
-Route::get('introduction-to-oop-quizzes', [QuizController::class, 'getIntroductionToOopQuizzes']);
+Route::get('introductionToJava-quizzes', [QuizController::class, 'getIntroductionToJavaQuizzes']);
+Route::get('introductionToOop-quizzes', [QuizController::class, 'getIntroductionToOopQuizzes']);
