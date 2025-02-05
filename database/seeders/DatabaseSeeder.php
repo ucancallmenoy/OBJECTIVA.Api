@@ -27,6 +27,7 @@ class DatabaseSeeder extends Seeder
             PolymorphismQuizSeeder::class,
             AbstractionQuizSeeder::class,
             EncapsulationQuizSeeder::class,
+            AdminUserSeeder::class,
         ]);
     }
 }
