@@ -395,16 +395,6 @@ class Game implements Playable {
 }',
             ],
             [
-                'question' => 'What happens when the following line of code is executed?',
-                'a' => 'The start() method in the Car class is invoked.',
-                'b' => 'The start() method in the FuelVehicle class is invoked.',
-                'c' => 'The start() method in the Vehicle interface is invoked.',
-                'd' => 'It will result in a compile-time error.',
-                'correct' => 'b',
-                'explanation' => "If Car extends FuelVehicle and does not override start(), the method in FuelVehicle is called.",
-                'code' => 'myCar.start();',
-            ],
-            [
                 'question' => 'Which classes implement the GPS interface?',
                 'a' => 'FuelVehicle',
                 'b' => 'Car',
